@@ -5,7 +5,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on:
+      - ubuntu-latest
+      - "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true"
     defaults: # instead of specifying the working directory for each step, we can set it at the job level
       run:
         working-directory: 04-using-actions/react-app
