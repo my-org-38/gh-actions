@@ -5,16 +5,15 @@ on:
 
 jobs:
   build:
-    runs-on:
-      - ubuntu-latest
-      - "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true"
+    runs-on: ubuntu-latest
     defaults: # instead of specifying the working directory for each step, we can set it at the job level
       run:
         working-directory: 04-using-actions/react-app
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
