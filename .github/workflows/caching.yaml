@@ -18,6 +18,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: "."
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -38,7 +41,12 @@ jobs:
       - name: Install dependancies
         id: install
         if: ${{ steps.cache.outputs.cache-hit == 'false' }}
-        run: npm ci
+        run: |
+          sh '''
+            npm ci
+            echo "${{ inputs.target-env }}"
+          '''
+
       - name: Test
         id: test
         run: npm run test
