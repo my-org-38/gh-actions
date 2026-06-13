@@ -1,0 +1,49 @@
+name: Using Caching
+
+on:
+  workflow_dispatch:
+    inputs:
+      use-cache:
+        type: boolean
+        default: true
+      target-env:
+        type: environment
+      node-version:
+        type: choice
+        default: v3
+        options:
+          - v1
+          - v2
+          - v3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        id: chkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        id: setnode
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Download Cached Dependancies
+        id: cache
+        if: ${{ inputs.use-cache }}
+        uses: actions/cache@v3
+        with: 
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('package.lock.json') }}  
+      - name: Install dependancies
+        id: install
+        if: ${{ steps.cache.outputs.cache-hit == 'false' }}
+        run: npm ci
+      - name: Test
+        id: test
+        run: npm run test
+      - name: Building
+        id: building
+        run: npm run build
+
+      

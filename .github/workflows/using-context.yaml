@@ -2,7 +2,7 @@ name: Using Contexts
 run-name: Using Contexts | DEBUG - ${{ inputs.debug }}
 
 on:
-  push:
+  # push:
   workflow_dispatch:
     inputs:
         debug:
