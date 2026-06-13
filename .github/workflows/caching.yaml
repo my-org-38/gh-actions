@@ -38,6 +38,7 @@ jobs:
         with: 
           path: node_modules
           key: deps-node-modules-${{ hashFiles('package-lock.json') }}  
+      # Skipped. if `inputs.use-case` is true. and `cache-hit` is true   
       - name: Install dependancies
         id: install
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
