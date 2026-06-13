@@ -28,25 +28,22 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Node
         id: setnode
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
       - name: Download Cached Dependancies
         id: cache
         if: ${{ inputs.use-cache }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with: 
           path: node_modules
-          key: deps-node-modules-${{ hashFiles('package.lock.json') }}  
+          key: deps-node-modules-${{ hashFiles('package-lock.json') }}  
       - name: Install dependancies
         id: install
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
-          sh '''
             npm ci
             echo "${{ inputs.target-env }}"
-          '''
-
       - name: Test
         id: test
         run: npm run test
