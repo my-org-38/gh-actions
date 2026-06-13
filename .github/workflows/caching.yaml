@@ -10,11 +10,11 @@ on:
         type: environment
       node-version:
         type: choice
-        default: v3
+        default: '24.x'
         options:
-          - v1
-          - v2
-          - v3
+          - 20.x
+          - 22.x
+          - 24.x
 
 jobs:
   build:
