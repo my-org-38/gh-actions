@@ -40,7 +40,7 @@ jobs:
           key: deps-node-modules-${{ hashFiles('package.lock.json') }}  
       - name: Install dependancies
         id: install
-        if: ${{ steps.cache.outputs.cache-hit == 'false' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           sh '''
             npm ci
