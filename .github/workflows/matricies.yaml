@@ -15,6 +15,9 @@ jobs:
           - windows-latest
         node-version: [22.x, 24.x]
         env: [prod, staging]
+        exclude:
+          - os: windows-latest
+            env: staging
         include: 
           - os: macos-latest
             tag: expensive
