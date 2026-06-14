@@ -6,6 +6,7 @@ on:
 jobs:
   test-matricies:
     runs-on: ${{ matrix.os }}
+    name: "${{matrix.os}}- ${{matrix.node-version}}- ${{matrix.env}}- ${{matrix.tag}}"
     strategy:
       matrix:
         os: 
