@@ -1,0 +1,27 @@
+name: Cache NPM and Node Dependancies
+description: This action allows to cache both node and npm deps based on package-lock.json file
+
+inputs:
+  node-version:
+    description: NodeJS version to use.
+    default: '22.x'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node Version - ${{ inputs.node-version}}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Cache Deps
+      id: cache
+      uses: actions/cache@v4
+      with:
+        key: node-module-deps-${{ hashFiles(format('{0}', 'package-lock.json')) }}
+        path: node_modules
+    - name: Install deps
+      id: install
+      if:  steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash
