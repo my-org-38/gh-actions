@@ -16,6 +16,7 @@ jobs:
         uses: ./.github/actions/composite-cache-deps
         with:
           target-env: ${{ inputs.target-env }}
+          node-version: 24.x
       - name: Test
         run: npm run test
       - name: Build
