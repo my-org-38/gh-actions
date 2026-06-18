@@ -1,15 +1,21 @@
 name: Using Custom Composite Actions
 on:
   workflow_dispatch: 
+    inputs:
+      target-env:
+        type: choice
+        options:
+          - dev
+          - prod
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node and NPM dependancies
         uses: ./.github/actions/composite-cache-deps
         with:
-          node-version: 24.x
+          target-env: ${{ inputs.target-env }}
       - name: Test
         run: npm run test
       - name: Build

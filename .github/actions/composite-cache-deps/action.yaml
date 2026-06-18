@@ -6,22 +6,26 @@ inputs:
     description: NodeJS version to use.
     default: '22.x'
     required: true
+  target-env:
+    description: target env to use
+    default: dev
+    required: false
 
 runs:
   using: composite
   steps:
     - name: Setup Node Version - ${{ inputs.node-version}}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
     - name: Cache Deps
       id: cache
       uses: actions/cache@v4
       with:
-        key: node-module-deps-${{ hashFiles(format('{0}', 'package-lock.json')) }}
+        key: node-module-deps-${{ inputs.target-env }}-${{ hashFiles(format('{0}', 'package-lock.json')) }}
         path: node_modules
     - name: Install deps
       id: install
       if:  steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
+      run: ${{ 'inputs.target-env == dev' && 'npm ci' || 'npm ci --omit=dev' }}
       shell: bash
