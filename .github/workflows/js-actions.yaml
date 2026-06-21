@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6 
       - name: Check for dependency updates
-        uses: ./.github/actions/js-dependency-update/action.yaml
+        uses: ./.github/actions/js-dependency-update 
         with:
           base-branch: ${{ inputs.base-branch }}
           target-branch: ${{ inputs.target-branch }}
