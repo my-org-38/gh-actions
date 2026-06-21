@@ -29,5 +29,5 @@ inputs:
     description: Whether the output debug messages to the console
 
 runs:
-  using: node20
+  using: node24
   main: index.js
