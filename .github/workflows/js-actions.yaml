@@ -1,0 +1,26 @@
+name: Actions with JS
+
+on:
+  workflow_dispatch:
+    inputs:
+      base-branch:
+        type: string
+        default: main
+      target-branch:
+        type: string
+        default: update-dependencies
+      wd:
+        type: string
+        default: ./react-app
+
+jobs:
+  dependency-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6 
+      - name: Check for dependency updates
+        uses: ./.github/actions/js-dependency-update/action.yaml
+        with:
+          base-branch: ${{ inputs.base-branch }}
+          target-branch: ${{ inputs.target-branch }}
+          wd: ${{ inputs.wd }}
