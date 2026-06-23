@@ -6,9 +6,9 @@ on:
       url:
         type: choice
         options:
-          - 'www.google.com'
-          - 'www.invalid-url.com'
-          - 'Invalid'
+          - 'https://www.google.com'
+          - 'https://www.invalid-url.com'
+          - 'https://Invalid'
         description: url to ping
       max_trials:
         type: number
