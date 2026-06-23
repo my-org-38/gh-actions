@@ -16,6 +16,9 @@ on:
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6 
       - name: Check for dependency updates
@@ -24,3 +27,4 @@ jobs:
           base-branch: ${{ inputs.base-branch }}
           target-branch: ${{ inputs.target-branch }}
           wd: ${{ inputs.wd }}
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
