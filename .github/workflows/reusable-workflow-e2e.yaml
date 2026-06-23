@@ -6,5 +6,7 @@ on:
 jobs:
   e2e-tests:
     uses: my-org-38/gh-actions-e2e-tests/.github/workflows/e2e.yaml@main
+    with:
+      CLIENT_ID: ${{ vars.CLIENT_ID }}
     secrets: 
-      token: ${{ secrets.GITHUB_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
