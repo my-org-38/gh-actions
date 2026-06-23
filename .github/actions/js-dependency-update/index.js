@@ -12,7 +12,7 @@ async function run() {
   const targetBranch = core.getInput('target-branch', { required: true });
   const ghToken = core.getInput('gh-token', { required: true });
   const workingDir = core.getInput('wd', { required: true });
-  const debug = core.getBooleanInput('debug');
+  const debug = core.getInput('debug') === 'true';
 
   const commonExecOpts = {
     cwd: workingDir,
