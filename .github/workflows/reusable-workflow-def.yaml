@@ -1,0 +1,35 @@
+name: Reusable Workflow - Workflow Defination
+
+on:
+  workflow_call:
+    inputs:
+      target-dir:
+        description: The dir of build process
+        type: string
+    outputs:
+      build-status:
+        description: The state of build process
+        value: ${{ jobs.deploy.outputs.build-status }}
+      url:
+        description: The url of server to deploy
+        value: ${{ jobs.deploy.outputs.url }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      build-status: ${{steps.build.outputs.build-status }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6 
+      - name: Build
+        id: build
+        run: |
+          echo "Build Using dir ${{ inputs.target-dir }}"
+          echo "build-status=success" >> $GITHUB_OUTPUT
+      - name: Deploy
+        id: deploy
+        run: |
+          echo "Download build artifacts"
+          echo "url=https://www.google.com" >> $GITHUB_OUTPUT
