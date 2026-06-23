@@ -11,7 +11,7 @@ on:
         default: update-dependencies
       wd:
         type: string
-        default: ./react-app
+        default: react-app
 
 jobs:
   dependency-update:
