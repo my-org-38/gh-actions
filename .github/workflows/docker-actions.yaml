@@ -1,0 +1,37 @@
+name: adasd
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        type: choice
+        options:
+          - 'www.google.com'
+          - 'www.invalid-url.com'
+          - 'Invalid'
+        description: url to ping
+      max_trials:
+        type: number
+        description: Max no of trials, until actions fails
+      delay:
+        description: delay between trials
+        type: number
+
+
+jobs:
+  ping-url:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6 
+      - name: Ping URL
+        id: ping-url
+        uses: ./.github/actions/docker-ping-url
+        with:
+          url: ${{ inputs.url }}
+          max_trials: ${{ inputs.max_trials}}
+          delay: ${{ inputs.delay }}
+      - name: Print action output from ping url
+        run: |
+          echo "URL reachable: ${{ steps.ping-url.outputs.url-reachable }}"
+
+      
