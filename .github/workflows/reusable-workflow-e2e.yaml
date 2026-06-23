@@ -1,0 +1,8 @@
+name: Reusable Workflow 
+
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    uses: my-org-38/gh-actions-e2e-tests/.github/workflows/e2e.yaml@main
