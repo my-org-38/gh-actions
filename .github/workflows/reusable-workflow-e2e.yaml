@@ -7,4 +7,4 @@ jobs:
   e2e-tests:
     uses: my-org-38/gh-actions-e2e-tests/.github/workflows/e2e.yaml@main
     secrets: 
-      inherit
+      token: ${{ secrets.GITHUB_TOKEN }}
